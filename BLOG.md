@@ -68,4 +68,4 @@ If it doesn't, I learned that lifecycle mining is a solution in search of a prob
 ---
 
 *The code: [github.com/vystartasv/hermes-harness](https://github.com/vystartasv/hermes-harness)*
-*Try it: `npm install -g hermes-harness && hermes-harness seed-query "your error here"`*
+*Try it: `npm install -g hermes-harness`, run `hermes-harness seed-harvest` once to build the public seed, then query with `hermes-harness seed-query "your error here"`.*

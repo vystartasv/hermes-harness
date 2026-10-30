@@ -18,7 +18,7 @@ import { execSync } from "child_process";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from "fs";
 import { join } from "path";
 import { callFreeLLM, getEmbedding, cosineSimilarity } from "./harness";
-import { DATA_DIR, getDefaultRepos } from "./config";
+import { DATA_DIR, WORLD_MODEL, getDefaultRepos } from "./config";
 
 const STATE_FILE = join(DATA_DIR, "git-state.json");
 const REPO_MODELS_DIR = join(DATA_DIR, "repo-models");
@@ -218,7 +218,7 @@ function loadRepoModel(name: string): RepoModel | null {
 // ── Feed into global world model ──
 
 async function feedWorldModel(model: RepoModel) {
-  const wmPath = join(homedir(), ".hermes", "harness", "world-model.json");
+  const wmPath = WORLD_MODEL;
   let wm: any;
   try { wm = JSON.parse(readFileSync(wmPath, "utf-8")); }
   catch { wm = { clusters: [], total_observations: 0, last_updated: "", vocabulary: [] }; }
@@ -287,6 +287,10 @@ async function main() {
   
   const repos = findGitRepos();
   console.log(`Found ${repos.length} git repos`);
+  if (repos.length === 0) {
+    console.log("Set HARNESS_REPOS to one or more local git repository paths, then run mine-git again.");
+    return;
+  }
   
   for (const repo of repos) {
     const name = repo.split("/").pop() || "unknown";
@@ -340,7 +344,9 @@ async function main() {
   writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
   
   // Summary
-  const modelCount = readdirSync(REPO_MODELS_DIR).filter(f => f.endsWith(".json")).length;
+  const modelCount = existsSync(REPO_MODELS_DIR)
+    ? readdirSync(REPO_MODELS_DIR).filter(f => f.endsWith(".json")).length
+    : 0;
   console.log(`\n✅ ${modelCount} repo models built. Full lifecycles mined.`);
 }
 

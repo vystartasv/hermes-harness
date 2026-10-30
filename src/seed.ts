@@ -278,11 +278,21 @@ switch (cmd) {
     
   case "query":
     const ctx = process.argv.slice(3).join(" ") || "build fails on CI";
+    if (!existsSync(OUTPUT_MODEL)) {
+      console.error("Seed model not found. Run `hermes-harness seed-harvest` first.");
+      process.exitCode = 1;
+      break;
+    }
     const model = JSON.parse(readFileSync(OUTPUT_MODEL, "utf-8"));
     queryModel(ctx, model);
     break;
     
   case "export":
+    if (!existsSync(SEED_OUTPUT)) {
+      console.error("Seed model not found. Run `hermes-harness seed-harvest` first.");
+      process.exitCode = 1;
+      break;
+    }
     const m = JSON.parse(readFileSync(SEED_OUTPUT, "utf-8"));
     // Strip repo_models for lightweight export
     const exportModel = {

@@ -8,11 +8,8 @@
  */
 
 import { readFileSync, readdirSync, existsSync } from "fs";
-import { homedir } from "os";
 import { join } from "path";
-import { cosineSimilarity } from "./harness";
-
-const REPO_MODELS_DIR = join(homedir(), ".hermes", "harness", "repo-models");
+import { REPO_MODELS_DIR } from "./config";
 
 interface RepoModel {
   name: string;
@@ -46,7 +43,7 @@ function main() {
   }
 
   if (!existsSync(REPO_MODELS_DIR)) {
-    console.log("No repo models built yet. Run self-improve loop first.");
+    console.log("No repo models built yet. Set HARNESS_REPOS and run `hermes-harness mine-git` first.");
     process.exit(0);
   }
 

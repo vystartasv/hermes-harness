@@ -13,6 +13,7 @@ hermes-harness:
 • Runs on your laptop, no data leaves
 
 npm install -g hermes-harness
+hermes-harness seed-harvest
 hermes-harness seed-query "dependency version conflict"
 
 It's MIT. Contribute your favorite repos' patterns.
