@@ -20,8 +20,11 @@ jobs:
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
+      - uses: oven-sh/setup-bun@v2
       - name: Verify release version
         run: node -e 'if (process.env.GITHUB_REF_NAME !== `v${require("./package.json").version}`) process.exit(1)'
+      - name: Verify CLI help
+        run: bun run src/cli.ts --help
       - name: Check package contents
         run: npm pack --dry-run
       - name: Use npm trusted-publishing client
