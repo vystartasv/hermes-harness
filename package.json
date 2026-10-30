@@ -1,0 +1,39 @@
+{
+  "name": "hermes-harness",
+  "version": "1.0.1",
+  "description": "Local search for recurring fixes in repository history.",
+  "type": "module",
+  "bin": {
+    "hermes-harness": "./src/cli.ts"
+  },
+  "scripts": {
+    "seed-harvest": "bun run src/seed.ts harvest",
+    "seed-query": "bun run src/seed.ts query",
+    "seed-export": "bun run src/seed.ts export",
+    "mine-git": "bun run src/git-miner.ts",
+    "repo-query": "bun run src/repo-query.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vystartasv/hermes-harness.git"
+  },
+  "keywords": [
+    "git",
+    "mining",
+    "lifecycle",
+    "patterns",
+    "world-model",
+    "history",
+    "analysis"
+  ],
+  "author": "Vilius Vystartas",
+  "license": "MIT",
+  "engines": {
+    "bun": ">=1.3.0"
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "CONTRIBUTING.md"
+  ]
+}
