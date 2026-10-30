@@ -1,10 +1,10 @@
 {
   "name": "hermes-harness",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Local search for recurring fixes in repository history.",
   "type": "module",
   "bin": {
-    "hermes-harness": "./src/cli.ts"
+    "hermes-harness": "src/cli.ts"
   },
   "scripts": {
     "seed-harvest": "bun run src/seed.ts harvest",
